@@ -1,6 +1,6 @@
 const requests = {};
 
-const URL = "http://comunicateapi-env.eba-nzgfexux.us-east-1.elasticbeanstalk.com/";
+const URL = "http://comunicate-env.eba-umny9swh.us-east-1.elasticbeanstalk.com/";
 
 const miInit = {
     method: '',
