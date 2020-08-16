@@ -68,7 +68,7 @@ export default () => {
       </div>
       <div className="row">
         <div className="col div-nav"></div>
-        <div className="col col-lg-2 div-nav">
+        <div className="col col-lg-2 div-nav friends">
           <Friends render={status} id={id} />
         </div>
       </div>

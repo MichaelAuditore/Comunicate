@@ -17,10 +17,7 @@ app.use(morgan('dev')); // Info about each request in a short format
 app.use(urlencoded({ extended: true })); //Set to true to encode requests
 app.use(json()); //parse body to JSON
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '/views'));
-
 // Requires routes module to call endpoints
-app.use('/', router);
+app.use('/api', router);
 
 module.exports = app

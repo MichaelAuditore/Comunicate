@@ -1,11 +1,28 @@
 //Module with all App Routes 
+require('dotenv').config()
 
 const { Router } = require('express');
 const router = Router();
 const { connection } = require('../db_connection');
+const jwt = require("jsonwebtoken");
+
+function authenticateToken(req, res, next) {
+    // Gather the jwt access token from the request header
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    console.log(token);
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) console.log(err);
+        req.user = user;
+        next();
+    })
+
+}
 
 //Auth endpoint to check if user has a valid token
-router.get('/auth/:idToken', (req, res) => {
+router.get('/auth/:idToken', authenticateToken, (req, res) => {
     //get params from URL request
     const idToken = req.params.idToken
 
@@ -22,7 +39,7 @@ router.get('/auth/:idToken', (req, res) => {
 });
 
 //Add a user into DB
-router.post('/create', (req, res) => {
+router.post('/create', authenticateToken, (req, res) => {
     const { nombre, apellido, correo, idToken } = req.body;
 
     if (nombre && apellido && correo && idToken) {
@@ -39,7 +56,7 @@ router.post('/create', (req, res) => {
 
 
 //Add a friend
-router.post('/addFriend', (req, res) => {
+router.post('/addFriend', authenticateToken, (req, res) => {
     const { idUsuario, idUsuarioSolicitud } = req.body;
     connection.query('INSERT INTO amigos (idUsuario, idAmigo) VALUES (?, ?)', [idUsuario, idUsuarioSolicitud], (err, results, fields) => {
         if (err) throw err;
@@ -48,7 +65,7 @@ router.post('/addFriend', (req, res) => {
 });
 
 //Confirm Friend Request
-router.put('/confirmFriend', (req, res) => {
+router.put('/confirmFriend', authenticateToken, (req, res) => {
     const { idUsuario, idUsuarioSolicitud } = req.body;
     //Update amigos to avoid send more friend requests and generate relationship between users
     connection.query('UPDATE amigos SET idSolicitud=1 WHERE idUsuario=? AND idAmigo=?',
@@ -64,7 +81,7 @@ router.put('/confirmFriend', (req, res) => {
 });
 
 //Get Friends of each user in session
-router.get('/getFriends/:idUsuario', (req, res) => {
+router.get('/getFriends/:idUsuario', authenticateToken, (req, res) => {
     //convert to int the param req
     const idUsuario = parseInt(req.params.idUsuario);
     //Execute query
@@ -85,7 +102,7 @@ router.get('/getFriends/:idUsuario', (req, res) => {
 
 
 //Send message and save it
-router.post('/sendMessage/:idUsuario/:idAmigo', (req, res) => {
+router.post('/sendMessage/:idUsuario/:idAmigo', authenticateToken, (req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
     const idAmigo = parseInt(req.params.idAmigo);
     const { mensaje } = req.body;
@@ -98,7 +115,7 @@ router.post('/sendMessage/:idUsuario/:idAmigo', (req, res) => {
 });
 
 //Get all messages between two users
-router.get('/getMessages/:idUsuario/:idAmigo', (req, res) => {
+router.get('/getMessages/:idUsuario/:idAmigo', authenticateToken, (req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
     const idAmigo = parseInt(req.params.idAmigo);
     //Get all messages in order
@@ -115,9 +132,23 @@ router.get('/getMessages/:idUsuario/:idAmigo', (req, res) => {
         });
 });
 
+//Get all messages of user
+router.get('/getAllMessages/:idUsuario', authenticateToken, (req, res) => {
+    const idUsuario = parseInt(req.params.idUsuario);
+    connection.query('SELECT h.*, u.nombre, u.apellido FROM historial h INNER JOIN users ON u.idUsuario = h.idAmigo WHERE h.idUsuario = ?',
+        [idUsuario], (err, results, fields) => {
+            if (err) throw err;
+            if (results.length > 0) {
+                res.json(results);
+            }
+            else {
+                res.status(404).json("Not found");
+            }
+        })
+})
 
 //Search Friends
-router.get('/searchPeople/', (req, res) => {
+router.get('/searchPeople/', authenticateToken, (req, res) => {
 
     //Get all people in order
     connection.query('SELECT * FROM users ORDER BY nombre ASC',
@@ -134,7 +165,7 @@ router.get('/searchPeople/', (req, res) => {
 });
 
 //Search by Name
-router.get('/searchPeople/:name', (req, res) => {
+router.get('/searchPeople/:name', authenticateToken, (req, res) => {
     const name = req.params.name;
     //Get a person by name
     connection.query('SELECT * FROM users WHERE nombre = ?', [name], (err, results, fields) => {
@@ -150,7 +181,7 @@ router.get('/searchPeople/:name', (req, res) => {
 
 
 //Get Friend Requests
-router.get('/getRequests/:idUsuario', (req, res) => {
+router.get('/getRequests/:idUsuario', authenticateToken, (req, res) => {
     const idUsuario = parseInt(req.params.idUsuario);
     //Request to get Friend request of people would connect with current user
     connection.query('SELECT u.nombre, u.apellido FROM amigos a'
@@ -167,7 +198,7 @@ router.get('/getRequests/:idUsuario', (req, res) => {
 })
 
 //Delete Friend Requests
-router.delete('/deleteRequests/:idAmigo/:idUsuario', (req, res) => {
+router.delete('/deleteRequests/:idAmigo/:idUsuario', authenticateToken, (req, res) => {
     const idAmigo = parseInt(req.params.idAmigo);
     const idUsuario = parseInt(req.params.idUsuario);
     //Request to delete friend request
@@ -179,7 +210,7 @@ router.delete('/deleteRequests/:idAmigo/:idUsuario', (req, res) => {
 });
 
 //Delete Friends
-router.delete('/deleteFriends/:idAmigo/:idUsuario', (req, res) => {
+router.delete('/deleteFriends/:idAmigo/:idUsuario', authenticateToken, (req, res) => {
     const idAmigo = parseInt(req.params.idAmigo);
     const idUsuario = parseInt(req.params.idUsuario);
     //Request to delete relationship between each friend
