@@ -1,0 +1,43 @@
+.home-icon {
+  background: url("../images/home.svg") no-repeat center;
+}
+
+.messages-icon {
+  background: url("../images/messages.svg") no-repeat center;
+}
+
+.requests-icon {
+  background: url("../images/requests.png") no-repeat center;
+}
+
+.refresh-icon {
+  background: url("../images/update.svg") no-repeat center;
+  background-size: contain !important;
+  border: none;
+}
+
+.home-icon,
+.messages-icon,
+.requests-icon,
+.refresh-icon {
+  background-size: cover;
+  line-height: 1.5;
+  display: block;
+  padding: 0.7rem;
+}
+
+.col.div-nav {
+  padding: 0;
+}
+
+.light {
+  color: white !important;
+}
+
+#numero {
+  display: none;
+}
+
+.non-active {
+  text-align: center;
+}
