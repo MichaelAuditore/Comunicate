@@ -12,11 +12,9 @@ export default () => {
   const [code, setCode] = useState("");
 
   useEffect(() => {
-    if (!setShow) {
-      showModal("Se le ha enviado al correo un código para la verificación");
-    }
+    showModal("Se le ha enviado al correo un código para la verificación");
     setShow(true);
-  });
+  }, [show]);
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -27,15 +25,15 @@ export default () => {
     });
 
     user.confirmRegistration(code, true, (err, result) => {
-      if (err) throw err;
-      window.location.href = "#/home";
+      if (err) return showModal(err.message);
+      window.location.href = "#/";
     });
   };
 
   return (
     <article>
       <div className="login">
-        <h2 className="logo"></h2>
+        <div className="logo" title="logo" aria-labelledby="logo"></div>
         <form onSubmit={onSubmit} className="sm-gap">
           <div className="field">
             <label className="control-label" htmlFor="email">
@@ -67,7 +65,7 @@ export default () => {
           </div>
           <div className="actions">
             <button className="btn-primary" type="submit">
-              Ingresar
+              Verificar
             </button>
           </div>
           <hr />

@@ -13,7 +13,6 @@
 .refresh-icon {
   background: url("../images/update.svg") no-repeat center;
   background-size: contain !important;
-  border: none;
 }
 
 .home-icon,
@@ -24,8 +23,15 @@
   line-height: 1.5;
   display: block;
   padding: 0.7rem;
+  border: none;
 }
 
+.home-icon:focus,
+.messages-icon:focus,
+.requests-icon:focus,
+.refresh-icon:focus {
+  outline: 0;
+}
 .col.div-nav {
   padding: 0;
 }
@@ -40,4 +46,39 @@
 
 .non-active {
   text-align: center;
+}
+
+.friends {
+  height: auto;
+  overflow-y: scroll;
+}
+
+.friends p {
+  text-align: center;
+}
+
+.friend {
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+}
+
+.friend span {
+  cursor: pointer;
+}
+
+.friend span:hover ~ .msgdiv {
+  display: block;
+}
+
+.msgdiv {
+  display: none;
+  width: 200px;
+  border-radius: 5%;
+  border: 1px thin black;
+}
+
+.infomsg {
+  display: flex;
+  justify-content: flex-end;
 }

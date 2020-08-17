@@ -53,8 +53,7 @@ export default () => {
           if (err) {
             return showModal(err.message);
           }
-          console.log(data);
-          console.log(data.userSub);
+
           const success = requests.createUser(
             name,
             lastName,
@@ -73,7 +72,7 @@ export default () => {
   return (
     <article>
       <div className="login register">
-        <h2 className="logo"></h2>
+        <div className="logo" title="logo" aria-labelledby="logo"></div>
         <form onSubmit={onSubmit} className="sm-gap">
           <div className="row">
             <div className="field col-md-6">

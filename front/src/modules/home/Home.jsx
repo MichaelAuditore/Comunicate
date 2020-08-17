@@ -1,35 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "../../styles/home.css";
-import requests from "../../actions/apiRequests";
 import Friends from "./components/Friends";
+import Reqs from "./components/Requests";
+import Welcome from "./components/Welcome";
+import People from "./components/People";
+import Messages from "./components/Messages";
+import requests from "../../actions/apiRequests";
 
-//Return implicito
 export default () => {
-  const [personName, setName] = useState("");
-  const [status, setStatus] = useState(false);
   const [id, setId] = useState(0);
-
   useEffect(() => {
-    setStatus(true);
-    setId(1);
+    const sub = localStorage.getItem("sub");
+    const URL = `${requests.URL}login/${sub}`;
+    requests.getID(URL);
   }, []);
-
-  const onSubmit = function (event) {
-    event.preventDefault();
-    if (personName !== "") {
-      requests.searchPeopleByName(personName);
-    } else {
-      requests.searchPeople();
-    }
-  };
-
-  const onReload = function (event) {
-    event.preventDefault();
-    if (!status) {
-      setStatus(true);
-    }
-  };
 
   return (
     <div className="container-fluid">
@@ -37,16 +21,24 @@ export default () => {
         <div className="col div-nav">
           <nav className="navbar navbar-dark bg-primary">
             <h2 className="navbar-brand">Comunicate</h2>
-            <Link className="home-icon" to="#"></Link>
-            <Link className="messages-icon" to="#"></Link>
-            <Link className="requests-icon" to="#"></Link>
-            <form className="form-inline" onSubmit={onSubmit}>
+            <form onSubmit={""}>
+              <button className="home-icon" type="submit"></button>
+            </form>
+            <form onSubmit={""}>
+              <button className="messages-icon" type="submit"></button>
+            </form>
+
+            <form onSubmit={""}>
+              <button className="requests-icon" type="submit"></button>
+            </form>
+
+            <form className="form-inline" onSubmit={""}>
               <input
                 className="form-control mr-sm-2"
                 type="search"
                 placeholder="Search People"
                 aria-label="Search"
-                onChange={(event) => setName(event.target.value)}
+                onChange={(event) => console.log(event.target.value)}
               />
               <button
                 className="btn btn-outline-dark my-2 my-sm-0"
@@ -60,17 +52,15 @@ export default () => {
         <div className="col col-lg-2 col div-nav">
           <ul className="navbar navbar-light bg-dark">
             <h2 className="navbar-brand light">Friends</h2>
-            <form onSubmit={onReload}>
+            <form onSubmit={""}>
               <input type="submit" value="" className="refresh-icon" />
             </form>
           </ul>
         </div>
       </div>
-      <div className="row">
+      <div className="row content">
         <div className="col div-nav"></div>
-        <div className="col col-lg-2 div-nav friends">
-          <Friends render={status} id={id} />
-        </div>
+        <div className="col col-lg-2 div-nav friends"></div>
       </div>
     </div>
   );

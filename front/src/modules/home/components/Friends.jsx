@@ -1,31 +1,30 @@
 import React, { Component } from "react";
+import requests from "../../../actions/apiRequests";
 
 class Friends extends Component {
   constructor() {
     super();
-    this.state = { data: [] };
+    this.state = { friends: [] };
   }
 
   componentDidMount() {
-    fetch(
-      "http://comunicateapi-env.eba-nzgfexux.us-east-1.elasticbeanstalk.com/getFriends/1"
-    )
+    //Get added Friends
+    fetch(requests.URL + "getFriends/" + localStorage.getItem("id"))
       .then((res) => res.json())
-      .then((json) => this.setState({ data: json }));
+      .then((myJson) => this.setState({ friends: myJson }));
   }
 
   render() {
-    return (
-      <div>
-        <ul>
-          {this.state.data.map((el) => (
-            <li>
-              {el.nombre}: {el.apellido}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
+    return this.state.friends.map((l, idx) => {
+      return (
+        <div className="friend" key={idx}>
+          <p>
+            {l.nombre} {l.apellido}
+          </p>
+          <span id={l.id}>&times;</span>
+        </div>
+      );
+    });
   }
 }
 

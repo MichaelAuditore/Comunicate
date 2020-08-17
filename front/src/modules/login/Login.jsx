@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import userPool from "../../utils/userPool";
 import "../../styles/login.css";
+import { showModal } from "../../actions/general";
+import requests from "../../actions/apiRequests";
 
 //Return implicito
 export default () => {
@@ -10,13 +14,47 @@ export default () => {
   const onSubmit = (event) => {
     event.preventDefault();
 
-    console.log(email, pwd);
+    //User to check it into Cognito
+    const user = new CognitoUser({
+      Username: email,
+      Pool: userPool,
+    });
+
+    //Details to check inside Cognito about account to Login
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: pwd,
+    });
+
+    user.authenticateUser(authDetails, {
+      onSuccess: (data) => {
+        localStorage.setItem(
+          "accessToken",
+          data.getAccessToken().getJwtToken()
+        );
+        localStorage.setItem("sub", data.getAccessToken().payload.sub);
+        requests.getID();
+        window.location.href = "#/home";
+      },
+
+      onFailure: (err) => {
+        if (err.code === "UserNotConfirmedException") {
+          window.location.href = "/#/verify";
+        } else {
+          showModal(err.message);
+        }
+      },
+
+      newPasswordRequired: (data) => {
+        console.log("newPasswordRequired:", data);
+      },
+    });
   };
 
   return (
     <article>
       <div className="login">
-        <h2 className="logo"></h2>
+        <div className="logo" title="logo" aria-labelledby="logo"></div>
         <form onSubmit={onSubmit} className="sm-gap">
           <div className="field">
             <label className="control-label" htmlFor="email">
