@@ -5,6 +5,6 @@ window._config = {
         region: 'us-east-1' // e.g. us-east-2
     },
     api: {
-        invokeUrl: 'http://Nodeserver-env.eba-n9zdm9j3.us-east-1.elasticbeanstalk.com/api/' // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod,
+        invokeUrl: 'http://node-env.eba-6csu6jky.us-east-1.elasticbeanstalk.com/api/' // e.g. https://rc7nyt4tql.execute-api.us-west-2.amazonaws.com/prod,
     }
 };

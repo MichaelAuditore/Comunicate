@@ -1,6 +1,6 @@
 var sub = localStorage.getItem("sub");
 const accessToken = localStorage.getItem("idToken");
-var id = parseInt(localStorage.getItem("id"));
+let id = localStorage.getItem("id");
 var email = localStorage.getItem("email");
 
 const URL = "apil.us-east-1.elasticbeanstalk.com/api/";
@@ -18,7 +18,7 @@ const miInit = {
 async function getID() {
     miInit.method = "GET";
     const urlLink = `${_config.api.invokeUrl}login/${sub}`;
-    fetch(urlLink, miInit)
+    await fetch(urlLink, miInit)
         .then(resp => resp.json())
         .then(resp => localStorage.setItem("id", resp[0].id));
 }
@@ -51,7 +51,7 @@ async function updateID() {
     const urlLink = `${_config.api.invokeUrl}update`;
     fetch(urlLink, miInit)
         .then(resp => resp.json())
-        .then(resp => localStorage.setItem("id", resp.id));
+        .then(resp => getID());
 }
 
 //Add Friend or send Friend Request
@@ -71,7 +71,7 @@ async function addFriend(idUsuarioSolicitud) {
 async function confirmRequest(idUsuarioSolicitud) {
     miInit.method = "PUT";
     miInit.body = JSON.stringify({
-        "idUsuario": parseInt(localStorage.getItem("id")),
+        "idUsuario": id,
         "idUsuarioSolicitud": idUsuarioSolicitud
     });
     console.log(miInit.body);

@@ -7,7 +7,7 @@
   }
   
   .requests-icon {
-    background: url("../images/requests.png") no-repeat center;
+    background: url("../images/friend.svg") no-repeat center;
   }
   
   .refresh-icon {
@@ -16,7 +16,7 @@
   }
 
   .signout-icon {
-    background: url("../images/signout.png") no-repeat center;
+    background: url("../images/logout.svg") no-repeat center;
     background-size: contain !important;
   }
 
@@ -33,7 +33,6 @@
   .signout-icon {
     background-size: cover;
     line-height: 1.5;
-    display: block;
     padding: 0.7rem;
     border: none;
   }

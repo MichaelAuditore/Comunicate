@@ -31,4 +31,5 @@ function paintChats(chats) {
 
 function openChat(id) {
     const parseId = parseInt(id);
+    window.location.href = `chatWindow.html?idUsuario=${id}`;
 }

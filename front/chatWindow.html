@@ -4,12 +4,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/requests.css">
     <link rel="shorcut icon" type="image/png" href="./images/comunicate.png" />
-    <title>Document</title>
+</head>
+<title>Comunicate</title>
 </head>
 
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col div-nav">
+                <nav class="navbar navbar-dark bg-primary">
+                    <h2 class="navbar-brand">Comunicate</h2>
+                    <button id="home" class="home-icon" type="submit"></button>
+                    <button id="searchMessages" class="messages-icon" type="submit"></button>
+                    <button id="searchRequests" class="requests-icon"></button>
 
+                    <form class="form-inline" id="searchPeople">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar Gente" aria-label="Search"
+                            name="personName" id="personName" />
+                        <button class="btn btn-outline-dark my-2 my-sm-0">
+                            Search
+                        </button>
+                    </form>
+                </nav>
+            </div>
+            <div class="col col-lg-2 col div-nav">
+                <ul class="navbar navbar-light bg-dark">
+                    <h2 class="navbar-brand light ">Friends</h2>
+                    <form class="display-flex">
+                        <input type="submit" value="" class="refresh-icon" />
+                        <input id="signOut" type="submit" value="" class="signout-icon" />
+                    </form>
+                </ul>
+            </div>
+        </div>
+        <div class="row content">
+            <div class="col-lg-10">
+                <h2 id="margen2">CHAT</h2>
+                <hr>
+                <div class="container" id="margen">
+                </div>
+            </div>
+            <div class="col col-lg-2 div-nav friends bor">
+
+            </div>
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/global_functions.js"></script>
+    <script src="js/getChat.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/reload.js"></script>
+    <script src="js/home.js"></script>
 </body>
 
 </html>

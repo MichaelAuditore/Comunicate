@@ -36,21 +36,8 @@ var Session = window.Session || {};
         localStorage.setItem("sub", Session.username);
 
         getID();
+        updateID();
 
-        const t_id = localStorage.getItem("id") || null;
-
-        if (t_id !== null && t_id !== "abcd" && t_id !== "undefined") {
-            console.log("Registered Correctly");
-        } else {
-            if (updateID()) {
-                getID();
-            }
-            if (localStorage.getItem("id")) {
-                console.log(localStorage.getItem("id"));
-            } else {
-                window.location.reload();
-            }
-        }
 
         $('#signOut').click(function () {
             WildRydes.signOut();
