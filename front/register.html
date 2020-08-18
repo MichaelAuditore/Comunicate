@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicate</title>
+    <link rel="stylesheet" href="css/container.css">
+    <link rel="stylesheet" href="css/message.css">
+    <link rel="shorcut icon" type="image/png" href="./images/comunicate.png" />
+</head>
+
+<body>
+    <div id="noCognitoMessage" class="configMessage" style="display: none;">
+        <div class="backdrop"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">No Cognito User Pool Configured</h3>
+            </div>
+            <div class="panel-body">
+                <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this
+                    in Module 2 of the workshop.</p>
+            </div>
+        </div>
+    </div>
+    <article>
+        <div class="login register">
+            <div class="logo" title="logo" aria-labelledby="logo"></div>
+            <form id="registrationForm" class="sm-gap">
+                <div class="row">
+                    <div class="field col-md-6">
+                        <label class="control-label" for="nombre">
+                            Nombre
+                        </label>
+                        <br />
+                        <input type="text" class="form-control" autofocus="autofocus" name="nombre" id="nombre" required
+                            pattern=".*" placeholder="Name" />
+                    </div>
+                    <div class="field col-md-6">
+                        <label class="control-label" for="apellido">
+                            Apellido
+                        </label>
+                        <br />
+                        <input type="text" class="form-control" autofocus="autofocus" name="apellido" id="apellido"
+                            placeholder="LastName" required pattern=".*" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field col-md-6">
+                        <label class="control-label" for="passwordInputRegister">
+                            Contraseña
+                        </label>
+                        <br />
+                        <input class="form-control" type="password" id="passwordInputRegister" placeholder="Password"
+                            pattern=".*" required>
+                    </div>
+                    <div class="field col-md-6">
+                        <label class="control-label" for="password2InputRegister">
+                            Confirmar contraseña
+                        </label>
+                        <br />
+                        <input class="form-control" type="password" id="password2InputRegister"
+                            placeholder="Confirm Password" pattern=".*" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="control-label" for="emailInputRegister">
+                        Email
+                    </label>
+                    <br />
+                    <input class="form-control" type="email" id="emailInputRegister" placeholder="Email" pattern=".*"
+                        required>
+                </div>
+
+                <div class="actions">
+                    <button class="btn-primary" type="submit">
+                        Registrar
+                    </button>
+                </div>
+                <hr />
+                <div>
+                    <p>
+                        <a href="index.html">Conectate</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </article>
+    <script src="js/requests.js"></script>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+</body>
+
+</html>

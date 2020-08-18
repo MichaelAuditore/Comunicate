@@ -1,0 +1,106 @@
+  .home-icon {
+    background: url("../images/home.svg") no-repeat center;
+  }
+  
+  .messages-icon {
+    background: url("../images/messages.svg") no-repeat center;
+  }
+  
+  .requests-icon {
+    background: url("../images/requests.png") no-repeat center;
+  }
+  
+  .refresh-icon {
+    background: url("../images/update.svg") no-repeat center;
+    background-size: contain !important;
+  }
+
+  .signout-icon {
+    background: url("../images/signout.png") no-repeat center;
+    background-size: contain !important;
+  }
+
+  .display-flex {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+  }
+
+  .home-icon,
+  .messages-icon,
+  .requests-icon,
+  .refresh-icon,
+  .signout-icon {
+    background-size: cover;
+    line-height: 1.5;
+    display: block;
+    padding: 0.7rem;
+    border: none;
+  }
+  
+  .home-icon:focus,
+  .messages-icon:focus,
+  .requests-icon:focus,
+  .refresh-icon:focus,
+  .signout-icon:focus {
+    outline: 0;
+  }
+  .col.div-nav {
+    padding: 0;
+  }
+  
+  .light {
+    color: white !important;
+  }
+  
+  #numero {
+    display: none;
+  }
+  
+  .non-active {
+    text-align: center;
+  }
+  
+  .friends {
+    height: auto;
+    overflow-y: scroll;
+  }
+  
+  .friends p {
+    text-align: center;
+  }
+  
+  .friend {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+  }
+  
+  .friend span {
+    cursor: pointer;
+  }
+  
+  .friend span:hover ~ .msgdiv {
+    display: block;
+  }
+  
+  #Noticias{
+    font-size: 70.5%;
+  }
+  #Noticias img {
+    width: 90%;
+  }
+  .friends{
+    overflow: auto;
+  }
+  .bg-dark{
+    background-color: #000 !important
+  }
+ .bor{
+  border-left: 2px solid #000 !important;
+  height: 100%;
+ }
+
+ .content {
+   margin: 0;
+ }

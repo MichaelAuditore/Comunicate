@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="shorcut icon" type="image/png" href="./images/comunicate.png" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col div-nav">
+                <nav class="navbar navbar-dark bg-primary">
+                    <h2 class="navbar-brand">Comunicate</h2>
+                    <button id="home" class="home-icon" type="submit"></button>
+                    <button id="searchMessages" class="messages-icon" type="submit"></button>
+                    <button id="searchRequests" class="requests-icon"></button>
+
+                    <form class="form-inline" id="searchPeople">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar Gente" aria-label="Search"
+                            name="personName" id="personName" />
+                        <button class="btn btn-outline-dark my-2 my-sm-0">
+                            Search
+                        </button>
+                    </form>
+                </nav>
+            </div>
+            <div class="col col-lg-2 col div-nav">
+                <ul class="navbar navbar-light bg-dark">
+                    <h2 class="navbar-brand light">Friends</h2>
+                    <form class="display-flex">
+                        <input type="submit" value="" class="refresh-icon" />
+                        <input id="signOut" type="submit" value="" class="signout-icon" />
+                    </form>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row content">
+        <div class="col-lg-3" id="Noticias">
+            <p>Noticias</p>
+            <img src="https://img-s-msn-com.akamaized.net/tenant/amp/entityid/BB184alu.img?h=453&w=680&m=6&q=60&o=f&l=f"
+                alt="">
+            <p>Ya se dio inicio a la cuarentena estricta en las localidades de Chapinero, Usaquén, Teusaquillo,
+                Puente Aranda, La Candelaria, Santa Fe y Antonio Nariño, que irá hasta el próximo 30 de agosto, por
+                lo que, al igual que ocurrió en la anteriores fases programadas, el Distrito estableció puntos para
+                que los habitantes de estas zonas puedan acceder a pruebas gratuitas de COVID-19.
+
+                Lea: Lo que debe tener en cuenta de la nueva cuarentena por localidades
+
+                En esta ocasión, de acuerdo con la Secretaría de Gobierno, se habilitaron los puntos de:
+
+                -Chapinero: Parque el Virrey y Estación Bomberos
+
+                - Usaquen: Codito-Cra 6 # 180C
+
+                - Teusaquillo: Centro comercial Galerías
+
+                - Antonio Nariño: Carrera 18A #4-81sur. Salón San Antonio
+
+                - Puente Aranda: Urbanización Santa Isabel Occidental KR 31 A 3 82 y Galán KR 56 CL 4
+
+                - Santa Fe: Plazoleta de telecom- Cra 13 con 23
+
+                - Candelaria: Centro administrativo- calle 6 con 9
+
+                Se espera que la nueva cuarentena por localidades sea la última, ante el inicio del desconfinamiento
+                de la ciudad. Por ahora, según la alcaldesa Claudia López, se atraviesan las seis semanas más
+                difíciles de la pandemia, luego de las cuales vendría un descenso de los casos.</p>
+        </div>
+        <div class="col-lg-7" id="letras">
+            <h2 id="margen">Bienvenido</h2><br>
+            <hr>
+            <p>Bienvenidos a COMUNITCATE, plataforma de chat empresarial, la red te permitira comunicarte con
+                todas las personas que tengas en tu chat, no podras enviar mensajes a personas que nos has agregado.
+            </p>
+            <hr>
+            <p>la aplicacion tambien te tendra actualizado sobre los cambios constantes que habra en tu
+                empresarial,
+                sobre las actualizaciones y reglas que tendras que tener en cuenta segun la politica de tu
+                empresarial.
+            </p>
+            <hr>
+            <p> el chat fue creado para evitar el uso de celulares, tablets entre otros tendras, muy encuenta que si
+                necesitas
+                algo lo tendras que gestionar con tus superiores entre otras.</p>
+        </div>
+        <div class="col-lg-2 div-nav friends bor">
+
+        </div>
+    </div>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+    <script src="js/global_functions.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/reload.js"></script>
+    <script src="js/home.js"></script>
+</body>
+
+</html>

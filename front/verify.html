@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicate</title>
+    <link rel="stylesheet" href="css/container.css">
+    <link rel="shorcut icon" type="image/png" href="./images/comunicate.png" />
+</head>
+
+<body>
+    <article>
+        <div class="login">
+            <div class="logo" title="logo" aria-labelledby="logo"></div>
+            <form id="verifyForm" class="sm-gap">
+                <div class="field">
+                    <label class="control-label" for="emailInputVerify">
+                        Email
+                    </label>
+                    <br />
+                    <input type="email" class="form-control" autofocus="autofocus" name="emailInputVerify"
+                        id="emailInputVerify" />
+                </div>
+                <div class="field">
+                    <label class="control-label" for="codeInputVerify">
+                        Código
+                    </label>
+                    <br />
+                    <input type="password" class="form-control" autocomplete="off" name="codeInputVerify"
+                        id="codeInputVerify" />
+                </div>
+                <div class="actions">
+                    <button class="btn-primary" type="submit">
+                        Verificar
+                    </button>
+                </div>
+                <hr />
+                <div>
+                    <p>
+                        <a href="register.html">Registrate</a>
+                    </p>
+                    <p>
+                        <a href="index.html">Conectate</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </article>
+    <script src="js/vendor/jquery-3.1.0.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+    <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cognito-auth.js"></script>
+</body>
+
+</html>
