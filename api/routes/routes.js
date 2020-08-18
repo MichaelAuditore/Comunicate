@@ -27,7 +27,7 @@ router.get('/login/:id', authenticateToken, (req, res) => {
     //get params from URL request
     const idToken = req.params.id;
     //Execute query
-    connection.query('SELECT id FROM users WHERE idToken LIKE ?', [idToken], (err, results) => {
+    connection.query('SELECT id FROM users WHERE idToken = ?', [idToken], (err, results) => {
         res.setHeader('Content-Type', 'application/json');
         if (err) return res.status(401).json({ errMessage: "No fue posible la transacción" });
         if (results.length > 0) {
@@ -49,6 +49,23 @@ router.post('/create', (req, res) => {
             [nombre, apellido, correo, idToken], (err) => {
                 if (err) return res.status(401).json({ errMessage: "No fue posible la transacción" });
                 res.json({ success: "Bienvenido a Comunicate!!" });
+            });
+
+    } else {
+        res.status(400).json("Solicitud Errada");
+    }
+});
+
+//Add a user into DB
+router.put('/update', (req, res) => {
+    const { correo, idToken } = req.body;
+    res.setHeader('Content-Type', 'application/json');
+    if (correo && idToken) {
+        //Execute query
+        connection.query('UPDATE users SET idToken = ? WHERE correo = ?',
+            [idToken, correo], (err) => {
+                if (err) return res.status(401).json({ errMessage: "No fue posible la transacción" });
+                res.json({ success: "Actualizado correctamente" });
             });
 
     } else {
@@ -93,7 +110,7 @@ router.get('/getFriends/:idUsuario', authenticateToken, (req, res) => {
     //convert to int the param req
     const idUsuario = parseInt(req.params.idUsuario);
     //Execute query
-    connection.query('SELECT u.id, u.nombre, u.apellido FROM amigos a INNER JOIN users u ON u.id = a.idAmigo WHERE a.idUsuario = ? and a.idSolicitud = 1',
+    connection.query('SELECT u.id, u.nombre, u.apellido FROM users u JOIN amigos a ON u.id != a.idAmigo WHERE a.idUsuario = ? and a.idSolicitud = 1',
         [idUsuario], (err, results) => {
             if (err) return res.status(401).json("No fue posible la transacción");;
             if (results.length > 0) {
@@ -149,7 +166,7 @@ router.get('/getMessages/:idUsuario/:idAmigo', authenticateToken, (req, res) => 
 router.get('/getAllMessages/:idUsuario', authenticateToken, (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     const idUsuario = parseInt(req.params.idUsuario);
-    connection.query('SELECT h.*, u.nombre, u.apellido FROM historial h INNER JOIN users ON u.idUsuario = h.idAmigo WHERE h.idUsuario = ?',
+    connection.query('SELECT h.*, u.id, u.nombre, u.apellido FROM historial h INNER JOIN users u ON u.id = h.idAmigo WHERE h.idUsuario = ?',
         [idUsuario], (err, results) => {
             if (err) return res.status(401).json("No fue posible la transacción");
             if (results.length > 0) {
@@ -162,10 +179,11 @@ router.get('/getAllMessages/:idUsuario', authenticateToken, (req, res) => {
 })
 
 //Search Friends
-router.get('/searchPeople/', authenticateToken, (req, res) => {
+router.get('/searchPeople/:id', authenticateToken, (req, res) => {
+    const id = req.params.id;
     res.setHeader('Content-Type', 'application/json');
     //Get all people in order
-    connection.query('SELECT * FROM users ORDER BY nombre ASC',
+    connection.query('SELECT * FROM users WHERE id != ? ORDER BY nombre ASC', [id],
         (err, results) => {
             if (err) return res.status(401).json("No fue posible la transacción");
             if (results.length > 0) {
@@ -181,9 +199,9 @@ router.get('/searchPeople/', authenticateToken, (req, res) => {
 //Search by Name
 router.get('/searchPeople/:name', authenticateToken, (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    const name = req.params.name;
+    const nombre = req.params.name;
     //Get a person by name
-    connection.query('SELECT * FROM users WHERE nombre = ?', [name], (err, results) => {
+    connection.query("SELECT * FROM users WHERE nombre LIKE " + connection.escape('%' + nombre + '%'), (err, results) => {
         if (err) return res.status(401).json("No fue posible la transacción");
         if (results.length > 0) {
             res.json(results);
@@ -200,8 +218,7 @@ router.get('/getRequests/:idUsuario', authenticateToken, (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     const idUsuario = parseInt(req.params.idUsuario);
     //Request to get Friend request of people would connect with current user
-    connection.query('SELECT u.nombre, u.apellido FROM amigos a'
-        + ' INNER JOIN users u ON u.id = a.idUsuario WHERE a.idAmigo=? AND idSolicitud=0 ORDER BY u.nombre ASC',
+    connection.query('SELECT * FROM users u JOIN amigos a ON u.id = a.idUsuario WHERE idAmigo = ?',
         [idUsuario], (err, results) => {
             if (err) return res.status(401).json("No fue posible la transacción");
             if (results.length > 0) {
